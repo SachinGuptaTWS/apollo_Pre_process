@@ -1,0 +1,170 @@
+hospital_id: apollo_chennai
+hospital_names:
+  - ACI
+  - APOLLO
+
+tesseract_cmd: null
+
+cover:
+  marker: "Patient Details"
+  hospital: 'Hospital Name:\s*(.+?)\s+IP NUMBER'
+  ip: 'IP NUMBER:\s*(CSNIP\d{6})'
+  uhid: 'UHID:\s*(\S+)'
+  patient_name: 'PATIENT NAME:\s*(.+?)\s+ADMISSION DATE'
+  admission_date: 'ADMISSION DATE:\s*(\d{2}-\d{2}-\d{4})'
+  scan_date: '(?<!ADMISSION )DATE:\s*(\d{2}-\d{2}-\d{4})'
+  scan_time: 'SCAN TIME\s*:\s*(\d{2}:\d{2}:\d{2})'
+  user: 'USER NAME\s*:\s*(.+?)\s+SCAN TIME'
+
+form_code_patterns:
+  - 'A[S]?H\s*[-–—]?\s*Q?R?F\s*[-–—]?\s*(?P<dept>NS|OT|CCU|FO)\s*[-–—]?\s*(?P<num>\d+[A-Za-z]?)'
+  - 'AH\s*[-–—]?\s*QF\s*[-–—]?\s*(?P<dept>FO)\s*[-–—]?\s*(?P<num>0?8)'
+form_code_depts:
+  - NS
+  - OT
+  - CCU
+  - FO
+
+sticker_ip_pattern: 'CSNIP\d{6}'
+sticker_uhid_pattern: 'ASH\d\.\d+'
+sticker_bed_pattern: 'BED\s*NO\.?\s*[:.]?\s*([A-Z0-9]+)'
+
+code_tiers: {}
+
+quality:
+  blank_std_max: 22.0
+  blank_edge_max: 0.008
+  blank_canny_low: 50
+  blank_canny_high: 150
+  blur_eval_width: 720
+  blur_laplacian_min: 80.0
+  dark_mean_min: 45.0
+  glare_value: 248
+  glare_fraction_max: 0.12
+  min_page_side_px: 400
+
+crop:
+  canny_low: 40
+  canny_high: 120
+  blur_ksize: 5
+  dilate_px: 3
+  dilate_iters: 2
+  approx_epsilon_frac: 0.02
+  min_quad_area_frac: 0.12
+  max_quad_area_frac: 0.93
+  min_aspect: 0.40
+  max_aspect: 2.50
+  min_solidity: 0.80
+  min_rect_fill: 0.62
+  overlap_iom_min: 0.15
+  min_second_doc_area_frac: 0.20
+  quad_dedupe_iou: 0.75
+
+orient:
+  ocr_upscale: 2.0
+  ocr_max_side_px: 2800
+  word_min_conf: 80
+  word_min_letters: 4
+  min_score: 40
+
+identity:
+  header_frac: 0.22
+  sticker_height_frac: 0.25
+  sticker_width_frac: 0.60
+  upscale: 2
+  oem: 3
+  psm: 6
+  psm_fallback: 11
+  lang: eng
+  timeout_sec: 25
+
+dedupe:
+  compare_long_side: 1000
+  sift_features: 1500
+  match_ratio: 0.75
+  ransac_px: 4.0
+  min_inliers: 230
+  min_overlap_frac: 0.15
+  ink_contain_min: 0.96
+  new_ink_blob_px: 450
+  dilation_px: 2
+  border_px: 8
+
+forms:
+  - id: drug_diet
+    title: "DRUG & DIET CHART"
+    tier: high
+    phrases: ["DRUG & DIET CHART", "DRUG AND DIET CHART", "DIET CHART", "DRUG CHART"]
+  - id: sos_stat
+    title: "SOS / STAT MEDICATIONS"
+    tier: high
+    phrases: ["SOS / STAT MEDICATIONS", "SOS STAT MEDICATIONS", "STAT MEDICATIONS", "STAT MEDICATION"]
+  - id: chemo_drug
+    title: "CHEMOTHERAPY DRUG CHART"
+    tier: high
+    phrases: ["CHEMOTHERAPY DRUG CHART", "CHEMOTHERAPY DRUG"]
+  - id: billing_card
+    title: "BILLING CARD"
+    tier: high
+    phrases: ["BILLING CARD"]
+  - id: ip_consultation
+    title: "IP CONSULTATION REQUEST"
+    tier: high
+    phrases: ["IP CONSULTATION REQUEST", "CONSULTATION REQUEST"]
+  - id: diabetic_chart
+    title: "DIABETIC VERBAL ORDER CHART"
+    tier: high
+    phrases: ["DIABETIC VERBAL ORDER CHART", "DIABETIC VERBAL ORDER", "DIABETIC CHART"]
+  - id: fluid_balance
+    title: "FLUID BALANCE CHART"
+    tier: high
+    phrases: ["FLUID BALANCE CHART", "FLUID BALANCE"]
+  - id: operation_notes
+    title: "OPERATION NOTES"
+    tier: high
+    phrases: ["OPERATION NOTES", "OPERATIVE NOTES"]
+  - id: intraoperative_nursing
+    title: "INTRAOPERATIVE NURSING RECORD"
+    tier: high
+    phrases: ["INTRAOPERATIVE NURSING RECORD", "INTRAOPERATIVE NURSING", "INTRA OP NURSING"]
+  - id: anaesthetic_record
+    title: "ANAESTHETIC RECORD"
+    tier: high
+    phrases: ["ANAESTHETIC RECORD", "ANESTHETIC RECORD", "ANAESTHESIA RECORD", "ANESTHESIA RECORD"]
+  - id: progress_orders
+    title: "PROGRESS REPORT & DOCTOR'S ORDERS"
+    tier: high
+    phrases: ["PROGRESS REPORT & DOCTOR'S ORDERS", "PROGRESS REPORT", "DOCTORS ORDERS", "DOCTOR'S ORDERS"]
+  - id: soap_notes
+    title: "DAILY PROGRESS NOTES IN SOAP FORMAT"
+    tier: high
+    phrases: ["DAILY PROGRESS NOTES IN SOAP FORMAT", "DAILY PROGRESS NOTES", "PROGRESS NOTES", "SOAP FORMAT"]
+  - id: nursing_handover
+    title: "NURSING HANDOVER"
+    tier: medium
+    phrases: ["NURSING HANDOVER", "HANDOVER NOTES", "INTERVENTION/IMPLEMENTATION", "INTERVENTION IMPLEMENTATION"]
+    require_all: ["MORNING", "EVENING", "NIGHT"]
+  - id: ccu_briefing
+    title: "CCU MEDICAL BRIEFING"
+    tier: medium
+    phrases: ["CCU MEDICAL BRIEFING", "MEDICAL BRIEFING"]
+  - id: kardex
+    title: "KARDEX CHART"
+    tier: low
+    phrases: ["KARDEX CHART", "KARDEX"]
+  - id: care_plan
+    title: "NURSES CARE PLAN"
+    tier: low
+    phrases: ["NURSES CARE PLAN", "NURSING CARE PLAN", "CARE PLAN"]
+  - id: early_warning
+    title: "Modified Early Warning Score"
+    tier: low
+    phrases: ["MODIFIED EARLY WARNING SCORE", "EARLY WARNING SCORE"]
+  - id: case_sheet
+    title: "CASE SHEET"
+    tier: low
+    phrases: ["CASE SHEET"]
+  - id: admission_form
+    title: "ADMISSION FORM"
+    tier: low
+    phrases: ["ADMISSION FORM"]

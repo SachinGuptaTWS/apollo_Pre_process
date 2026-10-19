@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Case sheets</title>
+<style>
+  body { margin: 16px 20px 40px; font: 14px Arial, Helvetica, sans-serif; color: #111; background: #fff; }
+  h1 { font-size: 18px; font-weight: 600; margin: 0 0 12px; }
+  h2 { font-size: 15px; font-weight: 600; margin: 18px 0 6px; }
+  form { margin: 0 0 8px; }
+  input, button { font: inherit; }
+  p { margin: 6px 0; }
+  table { border-collapse: collapse; width: 100%; margin: 0 0 8px; }
+  th, td { border: 1px solid #ccc; padding: 4px 6px; vertical-align: top; text-align: left; }
+  th { background: #f2f2f2; font-weight: 600; }
+  img { width: 84px; height: auto; }
+  img.full { width: 420px; max-width: 100%; background: #eee; }
+  .path { font-family: Consolas, monospace; font-size: 13px; }
+  .err { white-space: pre-wrap; }
+  small { color: #666; }
+  tr:target { background: #fff7cc; }
+</style>
+</head>
+<body>
+<h1>Case sheets</h1>
+<form method="post" action="/run" enctype="multipart/form-data">
+  <input type="file" name="pdf" accept="application/pdf,.pdf" required>
+  <button type="submit">Run</button>
+</form>
+<p>Leave this tab open. A long PDF can take several minutes.</p>
+<!--RESULTS-->
+</body>
+</html>

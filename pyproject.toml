@@ -1,0 +1,34 @@
+[project]
+name = "apollo-preprocess"
+version = "0.1.0"
+description = "Local image preprocessing for Apollo case-sheet photos before paid OCR."
+requires-python = ">=3.11"
+dependencies = [
+    "pymupdf>=1.24",
+    "opencv-python>=4.9",
+    "numpy>=1.26",
+    "Pillow>=10.0",
+    "pytesseract>=0.3",
+    "pyzbar>=0.1",
+    "pydantic>=2.0",
+    "typer>=0.12",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+preprocess = "apollo_preprocess.cli:app"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["apollo_preprocess*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+pythonpath = ["."]
